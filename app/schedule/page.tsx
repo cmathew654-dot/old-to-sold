@@ -35,6 +35,17 @@ export default function SchedulePage() {
   const [selectedService, setSelectedService] = useState<"pickup" | "dropoff">("pickup")
   const [isCalendlyLoaded, setIsCalendlyLoaded] = useState(false)
   const [calendlyError, setCalendlyError] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   // Load Calendly widget script
   useEffect(() => {
@@ -148,24 +159,24 @@ export default function SchedulePage() {
               <div className="inline-flex bg-white rounded-2xl p-2 shadow-lg border border-gray-200">
                 <button
                   onClick={() => setSelectedService("pickup")}
-                  className={`flex items-center gap-3 px-8 py-4 rounded-xl font-body font-semibold transition-all duration-200 ${
+                  className={`flex items-center gap-3 px-6 md:px-8 py-4 rounded-xl font-body font-semibold transition-all duration-200 text-sm md:text-base ${
                     selectedService === "pickup"
                       ? "bg-[#0B3D2E] text-white shadow-md"
                       : "text-[#0B3D2E] hover:bg-gray-50"
                   }`}
                 >
-                  <Package className="w-5 h-5" />
+                  <Package className="w-4 h-4 md:w-5 md:h-5" />
                   Pickup Service
                 </button>
                 <button
                   onClick={() => setSelectedService("dropoff")}
-                  className={`flex items-center gap-3 px-8 py-4 rounded-xl font-body font-semibold transition-all duration-200 ${
+                  className={`flex items-center gap-3 px-6 md:px-8 py-4 rounded-xl font-body font-semibold transition-all duration-200 text-sm md:text-base ${
                     selectedService === "dropoff"
                       ? "bg-[#0B3D2E] text-white shadow-md"
                       : "text-[#0B3D2E] hover:bg-gray-50"
                   }`}
                 >
-                  <MapPin className="w-5 h-5" />
+                  <MapPin className="w-4 h-4 md:w-5 md:h-5" />
                   Drop-off Service
                 </button>
               </div>
@@ -183,45 +194,51 @@ export default function SchedulePage() {
               transition={{ duration: 0.3 }}
             >
               <Card className="rounded-3xl shadow-lg border-0 bg-white mb-12">
-                <CardContent className="p-8 md:p-12">
-                  <div className="grid md:grid-cols-2 gap-12 items-center">
+                <CardContent className="p-6 md:p-8 lg:p-12">
+                  <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                     <div>
                       <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-12 bg-[#F0C419] rounded-2xl flex items-center justify-center">
                           {serviceInfo[selectedService].icon}
                         </div>
-                        <h2 className="font-heading font-bold text-3xl text-[#0B3D2E]">
+                        <h2 className="font-heading font-bold text-2xl md:text-3xl text-[#0B3D2E]">
                           {serviceInfo[selectedService].title}
                         </h2>
                       </div>
-                      <p className="font-body text-lg text-[#9CA3AF] mb-8 leading-relaxed">
+                      <p className="font-body text-base md:text-lg text-[#9CA3AF] mb-8 leading-relaxed">
                         {serviceInfo[selectedService].description}
                       </p>
                       <div className="space-y-4">
                         {serviceInfo[selectedService].benefits.map((benefit, index) => (
                           <div key={index} className="flex items-center gap-3">
-                            <div className="w-2 h-2 bg-[#F0C419] rounded-full" />
-                            <span className="font-body text-[#111827]">{benefit}</span>
+                            <div className="w-2 h-2 bg-[#F0C419] rounded-full flex-shrink-0" />
+                            <span className="font-body text-[#111827] text-sm md:text-base">{benefit}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="bg-[#F8FAFC] rounded-2xl p-8">
-                      <h3 className="font-heading font-semibold text-xl text-[#0B3D2E] mb-6">What to Expect</h3>
+                    <div className="bg-[#F8FAFC] rounded-2xl p-6 md:p-8">
+                      <h3 className="font-heading font-semibold text-lg md:text-xl text-[#0B3D2E] mb-6">
+                        What to Expect
+                      </h3>
                       <div className="space-y-4">
                         <div className="flex items-start gap-3">
                           <Clock className="w-5 h-5 text-[#F0C419] mt-1 flex-shrink-0" />
                           <div>
-                            <div className="font-body font-medium text-[#111827]">15-30 minutes</div>
-                            <div className="font-body text-sm text-[#9CA3AF]">Average appointment time</div>
+                            <div className="font-body font-medium text-[#111827] text-sm md:text-base">
+                              15-30 minutes
+                            </div>
+                            <div className="font-body text-xs md:text-sm text-[#9CA3AF]">Average appointment time</div>
                           </div>
                         </div>
                         <div className="flex items-start gap-3">
                           <Calendar className="w-5 h-5 text-[#F0C419] mt-1 flex-shrink-0" />
                           <div>
-                            <div className="font-body font-medium text-[#111827]">Flexible scheduling</div>
-                            <div className="font-body text-sm text-[#9CA3AF]">
+                            <div className="font-body font-medium text-[#111827] text-sm md:text-base">
+                              Flexible scheduling
+                            </div>
+                            <div className="font-body text-xs md:text-sm text-[#9CA3AF]">
                               Available {selectedService === "pickup" ? "Monday-Saturday" : "7 days a week"}
                             </div>
                           </div>
@@ -229,10 +246,10 @@ export default function SchedulePage() {
                         <div className="flex items-start gap-3">
                           <MapPin className="w-5 h-5 text-[#F0C419] mt-1 flex-shrink-0" />
                           <div>
-                            <div className="font-body font-medium text-[#111827]">
+                            <div className="font-body font-medium text-[#111827] text-sm md:text-base">
                               {selectedService === "pickup" ? "Your location" : "Our location"}
                             </div>
-                            <div className="font-body text-sm text-[#9CA3AF]">
+                            <div className="font-body text-xs md:text-sm text-[#9CA3AF]">
                               {selectedService === "pickup"
                                 ? `Serving ${siteConfig.location.cityState} area`
                                 : `Visit us in ${siteConfig.location.cityState}`}
@@ -254,14 +271,14 @@ export default function SchedulePage() {
             <Card className="rounded-3xl shadow-lg border-0 bg-white overflow-hidden">
               <CardContent className="p-0">
                 {!calendlyError && !isCalendlyLoaded && (
-                  <div className="p-12 text-center">
+                  <div className="p-8 md:p-12 text-center">
                     <div className="animate-spin w-8 h-8 border-4 border-[#F0C419] border-t-transparent rounded-full mx-auto mb-4" />
                     <p className="font-body text-[#9CA3AF]">Loading calendar...</p>
                   </div>
                 )}
 
                 {calendlyError && (
-                  <div className="p-12 text-center">
+                  <div className="p-8 md:p-12 text-center">
                     <Calendar className="w-16 h-16 text-[#9CA3AF] mx-auto mb-6" />
                     <h3 className="font-heading font-semibold text-xl text-[#0B3D2E] mb-4">
                       Schedule Your Appointment
@@ -287,29 +304,34 @@ export default function SchedulePage() {
                   </div>
                 )}
 
-                {/* Calendly Inline Widget */}
                 <div
                   id="calendly-inline-widget"
                   className={`w-full ${!isCalendlyLoaded || calendlyError ? "hidden" : ""}`}
-                  style={{ minHeight: "700px", height: "700px" }}
+                  style={{
+                    minHeight: isMobile ? "60vh" : "700px",
+                    height: isMobile ? "60vh" : "auto",
+                    maxHeight: isMobile ? "70vh" : "80vh",
+                    overflow: "hidden",
+                  }}
                 />
               </CardContent>
             </Card>
 
-            {/* Contact Information */}
-            <div className="mt-12 text-center">
-              <p className="font-body text-[#9CA3AF] mb-4">Need help or have questions? Contact us directly:</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-8 md:mt-12 text-center">
+              <p className="font-body text-[#9CA3AF] mb-4 text-sm md:text-base">
+                Need help or have questions? Contact us directly:
+              </p>
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="font-body text-[#0B3D2E] hover:text-[#0B3D2E]/80 transition-colors"
+                  className="font-body text-[#0B3D2E] hover:text-[#0B3D2E]/80 transition-colors text-sm md:text-base"
                 >
                   {siteConfig.contact.email}
                 </a>
                 <span className="hidden sm:inline text-[#9CA3AF]">•</span>
                 <a
                   href={`tel:${siteConfig.contact.phone}`}
-                  className="font-body text-[#0B3D2E] hover:text-[#0B3D2E]/80 transition-colors"
+                  className="font-body text-[#0B3D2E] hover:text-[#0B3D2E]/80 transition-colors text-sm md:text-base"
                 >
                   {siteConfig.contact.phone}
                 </a>

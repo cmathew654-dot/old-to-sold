@@ -149,18 +149,37 @@
     color: #111827;
     font-family: var(--font-inter);
     line-height: 1.6;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
   }
 
-  /* Improved Calendly embed styling */
+  /* Enhanced Calendly mobile optimization */
   .calendly-inline-widget {
-    min-height: 700px !important;
-    height: 700px !important;
+    min-height: min(700px, 80vh) !important;
+    height: min(700px, 80vh) !important;
     width: 100% !important;
+    border-radius: 1.5rem !important;
+    overflow: hidden !important;
   }
 
   .calendly-inline-widget iframe {
-    border-radius: 1rem !important;
+    border-radius: 1.5rem !important;
     border: none !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Mobile touch optimization */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Improved mobile scrolling */
+  @media (max-width: 768px) {
+    .calendly-inline-widget {
+      min-height: 60vh !important;
+      height: 60vh !important;
+    }
   }
 
   /* Reduce motion for accessibility */

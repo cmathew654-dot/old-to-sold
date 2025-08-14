@@ -244,20 +244,20 @@ export function PremiumHeader() {
           <motion.div
             ref={mobileMenuRef}
             id="mobile-menu"
-            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-2xl z-50 lg:hidden"
+            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-2xl z-50 lg:hidden border-l border-gray-300"
             aria-hidden={!isMobileMenuOpen}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.3, ease: themeConfig.ui.motion.ease }}
           >
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full bg-white">
               {/* Mobile menu header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between p-6 border-b-2 border-gray-300 bg-white shadow-sm">
                 <span className="font-heading font-bold text-xl text-[#0B3D2E]">{siteConfig.name}</span>
                 <button
                   onClick={closeMobileMenu}
-                  className="p-2 text-[#111827] hover:text-[#0B3D2E] focus:outline-none focus:ring-2 focus:ring-[#0B3D2E] focus:ring-offset-2 rounded-xl transition-colors"
+                  className="p-3 text-[#111827] hover:text-[#0B3D2E] focus:outline-none focus:ring-2 focus:ring-[#0B3D2E] focus:ring-offset-2 rounded-xl transition-colors bg-gray-100 hover:bg-gray-200 border border-gray-300"
                   aria-label="Close menu"
                 >
                   <X className="w-6 h-6" />
@@ -265,8 +265,8 @@ export function PremiumHeader() {
               </div>
 
               {/* Mobile menu navigation */}
-              <nav className="flex-1 px-6 py-8">
-                <div className="space-y-6">
+              <nav className="flex-1 px-6 py-8 bg-white overflow-y-auto">
+                <div className="space-y-2">
                   {siteConfig.nav.main.map((item, index) => (
                     <motion.div
                       key={item.href}
@@ -277,7 +277,7 @@ export function PremiumHeader() {
                       <Link
                         href={item.href}
                         onClick={closeMobileMenu}
-                        className="block font-body font-medium text-lg text-[#111827] hover:text-[#0B3D2E] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0B3D2E] focus:ring-offset-2 rounded-xl px-3 py-3"
+                        className="block font-body font-medium text-lg text-[#111827] hover:text-[#0B3D2E] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0B3D2E] focus:ring-offset-2 rounded-xl px-4 py-4 hover:bg-gray-100 border border-transparent hover:border-gray-200 touch-manipulation min-h-[48px] flex items-center"
                       >
                         {item.name}
                       </Link>
@@ -287,19 +287,19 @@ export function PremiumHeader() {
               </nav>
 
               {/* Mobile menu footer */}
-              <div className="p-6 border-t border-gray-200 space-y-4">
+              <div className="p-6 border-t-2 border-gray-300 space-y-4 bg-white shadow-inner">
                 <Button
                   asChild
-                  className="w-full bg-[#0B3D2E] hover:bg-[#0B3D2E]/90 text-white font-body font-semibold rounded-2xl px-6 py-4 shadow-md hover:shadow-lg transition-all duration-200"
+                  className="w-full bg-[#0B3D2E] hover:bg-[#0B3D2E]/90 text-white font-body font-semibold rounded-2xl px-6 py-5 shadow-md hover:shadow-lg transition-all duration-200 touch-manipulation min-h-[56px]"
                 >
                   <Link href="/schedule" onClick={closeMobileMenu} className="flex items-center justify-center gap-2">
-                    <Calendar className="w-4 h-4" />
+                    <Calendar className="w-5 h-5" />
                     Schedule Pickup
                   </Link>
                 </Button>
                 <Button
                   asChild
-                  className="w-full bg-[#F0C419] hover:bg-[#F0C419]/90 text-[#0B3D2E] font-body font-bold rounded-2xl px-6 py-4 shadow-md hover:shadow-lg transition-all duration-200"
+                  className="w-full bg-[#F0C419] hover:bg-[#F0C419]/90 text-[#0B3D2E] font-body font-bold rounded-2xl px-6 py-5 shadow-md hover:shadow-lg transition-all duration-200 touch-manipulation min-h-[56px]"
                 >
                   <a
                     href={siteConfig.ebayStoreUrl}
@@ -309,7 +309,7 @@ export function PremiumHeader() {
                     className="flex items-center justify-center gap-2"
                   >
                     Shop eBay Store
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-5 h-5" />
                   </a>
                 </Button>
               </div>

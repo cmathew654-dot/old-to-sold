@@ -308,9 +308,9 @@ export default function SchedulePage() {
                   id="calendly-inline-widget"
                   className={`w-full ${!isCalendlyLoaded || calendlyError ? "hidden" : ""}`}
                   style={{
-                    minHeight: isMobile ? "60vh" : "700px",
-                    height: isMobile ? "60vh" : "auto",
-                    maxHeight: isMobile ? "70vh" : "80vh",
+                    minHeight: isMobile ? "500px" : "700px",
+                    height: isMobile ? "80vh" : "700px",
+                    maxHeight: "none",
                     overflow: "hidden",
                   }}
                 />
